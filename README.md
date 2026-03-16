@@ -35,7 +35,43 @@ The dataset came pre-cleaned with no nulls or dirty values. Three columns were e
 
 ## Entity Relationship Diagram
 
-![ERD](https://github.com/user-attachments/assets/your-erd-image-here)
+Table employee_attrition {
+  age                        integer
+  attrition                  text
+  business_travel            text
+  daily_rate                 integer
+  department                 text
+  distance_from_home         integer
+  education                  integer
+  education_field            text
+  employee_count             integer
+  employee_number            integer [pk]
+  environment_satisfaction   integer
+  gender                     text
+  hourly_rate                integer
+  job_involvement            integer
+  job_level                  integer
+  job_role                   text
+  job_satisfaction           integer
+  marital_status             text
+  monthly_income             integer
+  monthly_rate               integer
+  num_companies_worked       integer
+  over18                     text
+  overtime                   text
+  percent_salary_hike        integer
+  performance_rating         integer
+  relationship_satisfaction  integer
+  standard_hours             integer
+  stock_option_level         integer
+  total_working_years        integer
+  training_times_last_year   integer
+  work_life_balance          integer
+  years_at_company           integer
+  years_in_current_role      integer
+  years_since_last_promotion integer
+  years_with_curr_manager    integer
+}
 
 ---
 
