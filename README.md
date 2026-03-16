@@ -3,7 +3,7 @@
 ## Table of Contents
 - [Business Context](#business-context)
 - [Dataset Overview](#dataset-overview)
-- [Entity Relationship Diagram](#entity-relationship-diagram)
+- [Table Schema](#table-schema)
 - [Data Preparation](#data-preparation)
 - [C. Attrition Overview](#c-attrition-overview)
 - [D. Work Factors Analysis](#d-work-factors-analysis)
@@ -11,7 +11,7 @@
 - [F. Combined Risk Profile](#f-combined-risk-profile)
 - [Key Findings](#key-findings)
 
-> Dataset sourced from: [HR Employee Attrition on Kaggle via Pplonski github project](https://github.com/pplonski/datasets-for-start/blob/master/employee_attrition/HR-Employee-Attrition-All.csv)
+> Dataset sourced from: [HR Employee Attrition on Kaggle via MLJAR](https://www.kaggle.com/datasets/pplonski/hr-employee-attrition)
 
 ---
 
@@ -29,49 +29,56 @@ This project analyzes 1,470 employee records to answer: which departments and ro
 |---|---|---|---|
 | `employee_attrition` | 1,470 | 35 | Employee demographics, job details, satisfaction scores, and attrition status |
 
-The dataset came pre-cleaned with no nulls or dirty values. Three columns were excluded from analysis because they contain the same value for every row: `over18` (always Y), `employee_count` (always 1), and `standard_hours` (always 80).
+The dataset came pre-cleaned with no nulls or dirty values.
 
 ---
 
-## Entity Relationship Diagram
+## Table Schema
 
-Table employee_attrition {
-  age                        integer
-  attrition                  text
-  business_travel            text
-  daily_rate                 integer
-  department                 text
-  distance_from_home         integer
-  education                  integer
-  education_field            text
-  employee_count             integer
-  employee_number            integer [pk]
-  environment_satisfaction   integer
-  gender                     text
-  hourly_rate                integer
-  job_involvement            integer
-  job_level                  integer
-  job_role                   text
-  job_satisfaction           integer
-  marital_status             text
-  monthly_income             integer
-  monthly_rate               integer
-  num_companies_worked       integer
-  over18                     text
-  overtime                   text
-  percent_salary_hike        integer
-  performance_rating         integer
-  relationship_satisfaction  integer
-  standard_hours             integer
-  stock_option_level         integer
-  total_working_years        integer
-  training_times_last_year   integer
-  work_life_balance          integer
-  years_at_company           integer
-  years_in_current_role      integer
-  years_since_last_promotion integer
-  years_with_curr_manager    integer
-}
+### Columns Used in Analysis
+
+| Column | Type | Description |
+|---|---|---|
+| `employee_number` | INTEGER (PK) | Unique employee identifier |
+| `age` | INTEGER | Employee age |
+| `attrition` | TEXT | Whether employee left (Yes/No) |
+| `department` | TEXT | Department name |
+| `job_role` | TEXT | Job title |
+| `gender` | TEXT | Gender |
+| `marital_status` | TEXT | Single, Married, Divorced |
+| `overtime` | TEXT | Whether employee works overtime (Yes/No) |
+| `business_travel` | TEXT | Travel frequency category |
+| `distance_from_home` | INTEGER | Commute distance in km |
+| `job_satisfaction` | INTEGER | Job satisfaction score (1-4) |
+| `education_field` | TEXT | Field of education |
+| `monthly_income` | INTEGER | Monthly salary in USD |
+| `total_working_years` | INTEGER | Total career experience in years |
+| `num_companies_worked` | INTEGER | Number of previous employers |
+| `years_with_curr_manager` | INTEGER | Years under current manager |
+
+### Columns Excluded from Analysis
+
+| Column | Reason |
+|---|---|
+| `over18` | Same value (Y) for every row, no analytical value |
+| `employee_count` | Same value (1) for every row, no analytical value |
+| `standard_hours` | Same value (80) for every row, no analytical value |
+| `daily_rate` | Not used in attrition pattern analysis |
+| `hourly_rate` | Not used in attrition pattern analysis |
+| `monthly_rate` | Not used in attrition pattern analysis |
+| `education` | Numeric education level, education_field used instead |
+| `environment_satisfaction` | Not included in this analysis scope |
+| `job_involvement` | Not included in this analysis scope |
+| `job_level` | Not included in this analysis scope |
+| `percent_salary_hike` | Not included in this analysis scope |
+| `performance_rating` | Not included in this analysis scope |
+| `relationship_satisfaction` | Not included in this analysis scope |
+| `stock_option_level` | Not included in this analysis scope |
+| `training_times_last_year` | Not included in this analysis scope |
+| `work_life_balance` | Not included in this analysis scope |
+| `years_at_company` | Not included in this analysis scope |
+| `years_in_current_role` | Not included in this analysis scope |
+| `years_since_last_promotion` | Not included in this analysis scope |
 
 ---
 
@@ -130,7 +137,7 @@ FROM hr_analytics.employee_attrition;
 
 ---
 
-### BQ1. What is the overall attrition rate?
+### C1. What is the overall attrition rate?
 
 ```sql
 SELECT
@@ -149,7 +156,7 @@ FROM clean_attrition;
 
 ---
 
-### BQ2. Attrition by department
+### C2. Attrition by department
 
 ```sql
 SELECT
@@ -174,7 +181,7 @@ ORDER BY attrition_rate_pct DESC;
 
 ---
 
-### BQ3. Attrition by job role
+### C3. Attrition by job role
 
 ```sql
 SELECT
@@ -191,10 +198,10 @@ ORDER BY attrition_rate_pct DESC;
 | job_role | total_employees | total_left | attrition_rate_pct |
 |---|---|---|---|
 | Sales Representative | 83 | 33 | 39.76% |
-| Human Resources | 52 | 12 | 23.08% |
 | Laboratory Technician | 259 | 62 | 23.94% |
-| Research Scientist | 292 | 47 | 16.10% |
+| Human Resources | 52 | 12 | 23.08% |
 | Sales Executive | 326 | 57 | 17.48% |
+| Research Scientist | 292 | 47 | 16.10% |
 | Manufacturing Director | 145 | 10 | 6.90% |
 | Healthcare Representative | 131 | 9 | 6.87% |
 | Manager | 102 | 5 | 4.90% |
@@ -205,7 +212,7 @@ ORDER BY attrition_rate_pct DESC;
 
 ---
 
-### BQ4. Attrition by gender
+### C4. Attrition by gender
 
 ```sql
 SELECT
@@ -228,7 +235,7 @@ ORDER BY attrition_rate_pct DESC;
 
 ---
 
-### BQ5. Attrition by marital status
+### C5. Attrition by marital status
 
 ```sql
 SELECT
@@ -259,7 +266,7 @@ ORDER BY attrition_rate_pct DESC;
 
 ---
 
-### CQ1. Attrition by overtime
+### D1. Attrition by overtime
 
 ```sql
 SELECT
@@ -278,12 +285,12 @@ ORDER BY attrition_rate_pct DESC;
 | Yes | 416 | 127 | 30.53% |
 | No | 1054 | 110 | 10.44% |
 
-- Overtime employees leave at nearly 3x the rate of those who don't work overtime
+- Overtime employees leave at nearly 3x the rate of those who don't
 - This is the single strongest predictor of attrition in the entire dataset
 
 ---
 
-### CQ2. Attrition by business travel
+### D2. Attrition by business travel
 
 ```sql
 SELECT
@@ -308,7 +315,7 @@ ORDER BY attrition_rate_pct DESC;
 
 ---
 
-### CQ3. Attrition by distance from home
+### D3. Attrition by distance from home
 
 ```sql
 SELECT
@@ -348,7 +355,7 @@ ORDER BY MIN(distance_from_home);
 
 ---
 
-### DQ1. Attrition by total working years
+### E1. Attrition by total working years
 
 ```sql
 SELECT
@@ -379,7 +386,7 @@ ORDER BY MIN(total_working_years);
 
 ---
 
-### DQ2. Attrition by number of companies worked
+### E2. Attrition by number of companies worked
 
 ```sql
 SELECT
@@ -410,7 +417,7 @@ ORDER BY MIN(num_companies_worked);
 
 ---
 
-### DQ3. Attrition by years with current manager
+### E3. Attrition by years with current manager
 
 ```sql
 SELECT
@@ -442,7 +449,7 @@ ORDER BY MIN(years_with_curr_manager);
 
 ---
 
-### DQ4. Attrition by education field
+### E4. Attrition by education field
 
 ```sql
 SELECT
@@ -470,7 +477,7 @@ ORDER BY attrition_rate_pct DESC;
 
 ---
 
-### DQ5. Attrition by job satisfaction score
+### E5. Attrition by job satisfaction score
 
 ```sql
 SELECT
@@ -502,7 +509,7 @@ ORDER BY job_satisfaction;
 
 ---
 
-### EQ1. Employee risk scoring
+### F1. Employee risk scoring
 
 Each risk factor identified in sections D and E contributes 1 point. Higher score means higher attrition risk.
 
@@ -533,7 +540,7 @@ LIMIT 20;
 
 ---
 
-### EQ2. Risk score validation
+### F2. Risk score validation
 
 ```sql
 WITH scored AS (
