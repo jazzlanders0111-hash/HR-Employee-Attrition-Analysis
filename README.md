@@ -11,7 +11,7 @@
 - [F. Combined Risk Profile](#f-combined-risk-profile)
 - [Key Findings](#key-findings)
 
-> Dataset sourced from: [HR Employee Attrition on Kaggle via MLJAR](https://www.kaggle.com/datasets/pplonski/hr-employee-attrition)
+> Dataset sourced from: [HR Employee Attrition on Kaggle via Pplonski github project](https://github.com/pplonski/datasets-for-start/blob/master/employee_attrition/HR-Employee-Attrition-All.csv)
 
 ---
 
