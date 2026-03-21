@@ -21,7 +21,13 @@ Employee attrition is one of the most expensive problems a company can have. Rep
 
 This project analyzes 1,470 employee records to answer: which departments and roles have the highest attrition, which work conditions drive people out, and whether we can build a simple risk model that flags employees before they resign.
 
----
+## Dashboard
+
+[View Interactive Dashboard on Tableau Public](https://public.tableau.com/app/profile/rich.justine.gambe/viz/HREmployeeAttrition_17740505914720/HREmployeeAttrition)
+
+![Dashboard Preview](hr_attrition_dashboard.png)
+
+--
 
 ## Dataset Overview
 
