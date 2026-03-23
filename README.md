@@ -27,7 +27,7 @@ This project analyzes 1,470 employee records to answer: which departments and ro
 
 ![Dashboard Preview](hr_attrition_dashboard.png)
 
---
+---
 
 ## Dataset Overview
 
